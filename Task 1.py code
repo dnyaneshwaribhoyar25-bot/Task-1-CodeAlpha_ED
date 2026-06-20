@@ -1,0 +1,77 @@
+def create_sample_dataset():
+    data = {
+        'review_id': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        'product_name': [
+            'Wireless Headphones', 'Smart Watch', 'Laptop Stand', 'Phone Case',
+            'Bluetooth Speaker', 'Keyboard', 'Mouse', 'USB Cable',
+            'Desk Lamp', 'Monitor', 'Webcam', 'Microphone',
+            'Headphone Stand', 'Cable Organizer', 'Power Bank'
+        ],
+        'rating': [5, 4, 3, 2, 5, 4, 5, 1, 4, 3, 2, 4, 5, 3, 4],
+        'review_text': [
+            'Amazing sound quality! Best headphones I have ever owned. Highly recommend!',
+            'Good watch but battery life is not great. Overall satisfied.',
+            'It works fine but nothing special. Average product.',
+            'Poor quality. Broke after 2 weeks. Very disappointed.',
+            'Excellent speaker! Great sound and battery lasts long. Love it!',
+            'Nice keyboard with good feel. Worth the price.',
+            'Perfect mouse for gaming. Smooth and responsive.',
+            'Terrible cable. Stopped working in 3 days. Dont buy!',
+            'Good lamp with adjustable brightness. Happy with purchase.',
+            'Monitor is decent but colors are not very accurate.',
+            'Webcam quality is poor. Images are blurry. Not recommended.',
+            'Great microphone for recording. Clear sound quality.',
+            'Awesome stand! Keeps headphones organized. Very useful.',
+            'Helps keep cables tidy. Simple but effective product.',
+            'Power bank charges quickly. Good capacity. Satisfied.'
+        ],
+        'date': [
+            '2025-01-15', '2025-02-20', '2025-03-10', '2025-04-05',
+            '2025-05-12', '2025-06-18', '2025-07-22', '2025-08-30',
+            '2025-09-14', '2025-10-08', '2025-11-25', '2025-12-03',
+            '2026-01-17', '2026-02-28', '2026-03-15'
+        ]
+    }
+    return pd.DataFrame(data)
+
+def main():
+    print("\n" + "="*70)
+    print("🚀 TASK 2: EXPLORATORY DATA ANALYSIS (EDA)")
+    print("="*70)
+    
+    print("\nUse sample dataset? (y/n): ")
+    use_sample = input().strip().lower()
+    
+    if use_sample == 'y':
+        df = create_sample_dataset()
+        print("\n✓ Using sample Amazon reviews dataset (15 reviews)")
+    else:
+        filepath = input("Enter CSV file path: ").strip()
+        try:
+            df = pd.read_csv(filepath)
+            print(f"\n✓ Loaded dataset from {filepath}")
+        except:
+            print("\n✗ Error. Using sample dataset.")
+            df = create_sample_dataset()
+    
+    print("\nMinimum rating to analyze (1-5): ")
+    min_rating = int(input().strip())
+    
+    df_filtered = df[df['rating'] >= min_rating]
+    print(f"\n✓ Filtered: {len(df_filtered)} reviews (rating >= {min_rating})")
+    
+    # EDA continues...
+    print("\n" + "="*70)
+    print("EDA RESULTS:")
+    print("="*70)
+    print(f"\nTotal rows: {df_filtered.shape[0]}")
+    print(f"Total columns: {df_filtered.shape[1]}")
+    print(f"\nRating Mean: {df_filtered['rating'].mean():.2f}")
+    print(f"Rating Median: {df_filtered['rating'].median():.2f}")
+    
+    print("\n" + "="*70)
+    print("✅ TASK 2 COMPLETE!")
+    print("="*70)
+
+if __name__ == "__main__":
+    main()
